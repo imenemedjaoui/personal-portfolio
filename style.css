@@ -223,7 +223,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 3rem 3rem;
+  padding: 6rem 3rem 7rem;
   overflow: hidden;
 }
 
@@ -397,31 +397,82 @@ img {
 
 /* Scroll indicator */
 .scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  animation: fadeInScroll 1.5s ease 1.5s both;
 }
 
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  animation: scrollBounce 2s ease-in-out infinite;
+@keyframes fadeInScroll {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scrollBounce {
-  0%, 100% { transform: scaleY(1); opacity: 1; }
-  50% { transform: scaleY(0.5); opacity: 0.5; }
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid var(--text-muted);
+  border-radius: 12px;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-mouse {
+  border-color: var(--accent);
+}
+
+.scroll-wheel {
+  width: 3px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 3px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 2s ease-in-out infinite;
+}
+
+@keyframes scrollWheel {
+  0% { opacity: 1; top: 6px; }
+  50% { opacity: 0.3; top: 18px; }
+  100% { opacity: 1; top: 6px; }
+}
+
+.scroll-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: -0.2rem;
+}
+
+.scroll-arrows svg {
+  color: var(--text-muted);
+  animation: scrollArrow 2s ease-in-out infinite;
+  transition: color 0.3s ease;
+}
+
+.scroll-arrows svg:nth-child(2) {
+  margin-top: -6px;
+  animation-delay: 0.2s;
+  opacity: 0.5;
+}
+
+.scroll-indicator:hover .scroll-arrows svg {
+  color: var(--accent);
+}
+
+@keyframes scrollArrow {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(4px); opacity: 1; }
 }
 
 /* ========================================
@@ -607,7 +658,7 @@ img {
 .timeline-date {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--accent);
   white-space: nowrap;
   background: var(--accent-glow);
   padding: 0.3rem 0.75rem;
