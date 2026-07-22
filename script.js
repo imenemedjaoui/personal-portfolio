@@ -210,6 +210,26 @@ ScrollTrigger.batch('.skill-category', {
   once: true
 });
 
+// Work project cards stagger
+ScrollTrigger.batch('.work-card', {
+  onEnter: (elements) => {
+    gsap.fromTo(elements,
+      { opacity: 0, y: 30, scale: 0.96 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power3.out',
+        onComplete: () => elements.forEach(el => el.classList.add('animated'))
+      }
+    );
+  },
+  start: 'top 85%',
+  once: true
+});
+
 // Project cards stagger
 ScrollTrigger.batch('.project-card', {
   onEnter: (elements) => {
@@ -249,7 +269,7 @@ document.querySelectorAll('.btn').forEach(btn => {
 /* ========================================
    TILT EFFECT ON CARDS
    ======================================== */
-document.querySelectorAll('.project-card, .stat-card, .skill-category').forEach(card => {
+document.querySelectorAll('.project-card, .work-card, .stat-card, .skill-category').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
